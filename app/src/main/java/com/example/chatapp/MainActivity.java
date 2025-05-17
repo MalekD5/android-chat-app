@@ -64,10 +64,11 @@ public class MainActivity extends AppCompatActivity {
                 contentValues.put(DbHelper.COLUMN_TITLE, title);
                 contentValues.put(DbHelper.COLUMN_BODY, body);
 
-                db.insert(DbHelper.TABLE_NAME, null, contentValues);
-            } catch (SQLiteConstraintException e) {
-                Utils.openDialog(this, "ERROR", "You can't have a user with the same id");
-                return;
+                long returnId = db.insert(DbHelper.TABLE_NAME, null, contentValues);
+                if (returnId == -1) {
+                    Utils.openDialog(this, "ERROR", "You can't have a user with the same id");
+                    return;
+                }
             }
 
             Utils.clearInputs(findViewById(R.id.mainLayout));
