@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Chat Application</string>
+    <string name="user_id">User ID</string>
+    <string name="Gender">Gender</string>
+    <string name="title">Message Title</string>
+    <string name="body">Message Body</string>
+    <string name="view">Message title\nMessage body</string>
+</resources>
