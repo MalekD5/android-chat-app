@@ -13,7 +13,6 @@ import android.widget.RadioButton;
 import android.content.SharedPreferences;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.splashscreen.SplashScreen;
 
 import java.util.OptionalInt;
 
@@ -22,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SplashScreen.installSplashScreen(this);
 
         setContentView(R.layout.activity_main);
 
@@ -47,10 +45,21 @@ public class MainActivity extends AppCompatActivity {
 
             int userId = optionalUserId.getAsInt();
 
-            String gender = male.isChecked() ? "Male" : "Female";
+            String gender = "";
+
+            if (male.isChecked()) {
+                gender = "Male";
+            } else if (female.isChecked()) {
+                gender = "Female";
+            }
 
             String title = input_title.getText().toString();
             String body = input_body.getText().toString();
+
+            if (title.isEmpty() || body.isEmpty() || gender.isEmpty()) {
+                Utils.openDialog(this, "ERROR", "You must enter title, body, and gender first!");
+                return;
+            }
 
             try (DbHelper dbHelper = new DbHelper(this)) {
                 SQLiteDatabase db = dbHelper.getWritableDatabase();
@@ -85,6 +94,11 @@ public class MainActivity extends AppCompatActivity {
 
             String userId = userid.getText().toString();
             String messageBody = input_body.getText().toString();
+
+            if (userId.isEmpty() || messageBody.isEmpty()) {
+                Utils.openDialog(this, "ERROR", "You must enter userId and message first!");
+                return;
+            }
 
             SharedPreferences sharedPreferences = getSharedPreferences("content", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
