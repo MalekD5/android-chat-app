@@ -18,12 +18,11 @@ public class ListMessagesActivity extends AppCompatActivity {
     private ArrayList<String> concatenatedStrings;
     private ArrayAdapter<String> arrayAdapter;
 
-    MediaPlayer aud;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_messages_activity);
-        aud= new MediaPlayer();
+        MediaPlayer aud = new MediaPlayer();
         aud = MediaPlayer.create(this, R.raw.notification);
         aud.start();
         dbHelper = new DbHelper(this);
@@ -35,7 +34,7 @@ public class ListMessagesActivity extends AppCompatActivity {
         arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, concatenatedStrings);
         listView.setAdapter(arrayAdapter);
 
-        fetchDataAndPopulateListView();
+        fetchAndPopulateListView();
 
         listView.setOnItemClickListener((parent, view, position, id) -> {
             String selectedItem = arrayAdapter.getItem(position);
@@ -54,7 +53,7 @@ public class ListMessagesActivity extends AppCompatActivity {
         });
     }
 
-    private void fetchDataAndPopulateListView() {
+    private void fetchAndPopulateListView() {
         try (Cursor cursor = dbHelper.viewAll()) {
             if (cursor.moveToFirst()) {
                 int userIdColumnIndex = cursor.getColumnIndexOrThrow(DbHelper.COLUMN_USER_ID);

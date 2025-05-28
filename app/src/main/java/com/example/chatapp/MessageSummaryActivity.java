@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 public class MessageSummaryActivity extends AppCompatActivity {
 
     private DbHelper dbHelper;
-    private int userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +18,7 @@ public class MessageSummaryActivity extends AppCompatActivity {
 
         dbHelper = new DbHelper(this);
 
-        userId = getIntent().getIntExtra("userId", -1);
+        int userId = getIntent().getIntExtra("userId", -1);
 
         if (userId != -1) {
             String body = retrieveBody(userId);
