@@ -22,8 +22,7 @@ public class ListMessagesActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_messages_activity);
-        MediaPlayer aud = new MediaPlayer();
-        aud = MediaPlayer.create(this, R.raw.notification);
+        MediaPlayer aud = MediaPlayer.create(this, R.raw.notification);
         aud.start();
         dbHelper = new DbHelper(this);
         Toast.makeText(ListMessagesActivity.this, "Success", Toast.LENGTH_SHORT).show();
