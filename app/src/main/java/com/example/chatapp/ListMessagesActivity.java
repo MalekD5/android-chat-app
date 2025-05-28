@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class ListMessagesActivity extends AppCompatActivity {
 
     private DbHelper dbHelper;
-    private ArrayList<String> concatenatedStrings;
+    private final ArrayList<String> messages = new ArrayList<>();
     private ArrayAdapter<String> arrayAdapter;
 
     @Override
@@ -29,8 +29,7 @@ public class ListMessagesActivity extends AppCompatActivity {
 
         ListView listView = findViewById(R.id.listViewss);
 
-        concatenatedStrings = new ArrayList<>();
-        arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, concatenatedStrings);
+        arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, messages);
         listView.setAdapter(arrayAdapter);
 
         fetchAndPopulateListView();
@@ -63,7 +62,7 @@ public class ListMessagesActivity extends AppCompatActivity {
                     String title = cursor.getString(titleColumnIndex);
 
                     String concatenatedString = userId + "\n" + title;
-                    concatenatedStrings.add(concatenatedString);
+                    messages.add(concatenatedString);
 
                     cursor.moveToNext();
                 }
