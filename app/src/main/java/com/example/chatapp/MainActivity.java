@@ -109,13 +109,14 @@ public class MainActivity extends AppCompatActivity {
             String spUserId = sharedPreferences.getString("id", "defaultUserId");
             String spMessageBody = sharedPreferences.getString("body", "defaultMessageBody");
 
-            displayDataAlertDialog(spUserId, spMessageBody);
+            String s = """
+            User id: %s
+            Message: %s
+            """;
+
+            Utils.openDialog(this, "Review Message", String.format(s, spUserId, spMessageBody));
         });
 
-    }
-
-    private void displayDataAlertDialog(String userId, String messageBody) {
-        Utils.openDialog(this, "Review Message", "User ID: " + userId + "\nMessage Body: " + messageBody);
     }
 
 }
